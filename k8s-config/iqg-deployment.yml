@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: iqg
+  name: iqg-app
+  labels:
+    name: iqg-app
+spec:
+  selector:
+    matchLabels:
+      app: iqg-app
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: iqg-app
+    spec:
+      containers:
+      - name: iqg-app
+        image: public.ecr.aws/o7g3t6m7/iqg
+        ports:
+        - containerPort: 3000
