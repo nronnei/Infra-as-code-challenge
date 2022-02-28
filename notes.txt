@@ -1,0 +1,29 @@
+___________________
+Running an ALB
+Following the tutorial here: https://blog.sivamuthukumar.com/aws-load-balancer-controller-on-eks-cluster
+
+# Add the help repo for eks
+
+helm repo add eks https://aws.github.io/eks-charts
+
+# Install the Load Balancer Controller Custom Resource Definitions (CRDs)
+
+kubectl apply -k "github.com/aws/eks-charts/stable/aws-load-balancer-controller//crds?ref=master"
+
+# Install the helm chart
+helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
+  -n kube-system \
+  --set clusterName=eks-iqg \
+  --set serviceAccount.create=false \
+  --set serviceAccount.name=aws-load-balancer
+
+
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.0.0/docs/examples/echoservice/echoserver-namespace.yaml &&\
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.0.0/docs/examples/echoservice/echoserver-service.yaml &&\
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.0.0/docs/examples/echoservice/echoserver-deployment.yaml
+
+_______________________
+
+Ultimately, I didn't get any of the above to actually work. I just went with a standard LoadBalancer type service and that did the trick.
+
+I learned a lot about where TF and K8s overlap as tools in the process of running this project. You can use TF to manage k8s deployments for a GitOps kind of flow, though Rancher/Helm/Fleet do seem to be much better tools for that. I want to ask Matt more about how fleet actually works. Where and how do we get the manifest of charts required for a project? It's opaque to me now, but I know that with a little more practice I could answer that question for myself. I'd just like to have him point me in the right direction.
