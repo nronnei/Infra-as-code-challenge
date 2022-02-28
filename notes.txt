@@ -1,3 +1,13 @@
+Provisioning an EKS cluster
+Following the tutorial here: https://learn.hashicorp.com/tutorials/terraform/eks
+
+Essentially, copy down those files and rename the stuff you want to change. I did this one at a time, copying from the raw files.
+
+I decided to extract the locals out to their own file to reduce my own confusion. Not sure if this is a good practice or not.
+
+I wanted to do more with the security groups. It seems like that setup is over-complicated for what I'm doing, but that's alright for now. That's a place I'd expand my knowledge, though. I'm weak on networking in general.
+
+I also want to get the k8s dashboard set up. Didn't do that as it seemed an unnecessary extra, but that's the next move for exploration purposes. Do this BEFORE playing w/ the vpc/sg stuff.
 ___________________
 Running an ALB
 Following the tutorial here: https://blog.sivamuthukumar.com/aws-load-balancer-controller-on-eks-cluster
